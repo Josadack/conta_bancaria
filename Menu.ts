@@ -2,36 +2,26 @@ import readlinesync = require('readline-sync')
 import { colors } from './src/util/Cores'
 import { ContaCorrente } from './src/model/ContaCorrente';
 import { ContaPoupanca } from './src/model/ContaPoupanca';
+import { ContaController } from './src/controller/ContaController';
 
 
 export function main(){
 
-    let opcao: number;
+    let opcao, numero, agencia, tipo, saldo, limite, aniversario: number;
+    let titular:string;
 
-    
-    //Contas Correntes
-    const cc1 = new ContaCorrente(3, 789, 1, "Josadaque", 100000, 1000)
-    cc1.visualizar();
-    console.log("");
-    //Sacar Conta corrente 
-    cc1.sacar(100500);
-    cc1.visualizar();
-    //Depositar Conta corrente 
-    cc1.despositar(2000);
-    cc1.visualizar();
+    const tipoContas = ['Conta Corrente', 'Conta Poupanca'];
 
-    console.log("");
+    //Criando um objeto da classe contacontroller
+    const contas = new ContaController();
 
-    //Contas Poupança
-    const cp1 = new ContaPoupanca(4, 879, 2, "Carlos", 50000, 9);
-    //Despositar
-    cp1.despositar(500);
-    cp1.visualizar();
-    //Sacar
-    cp1.sacar(50501);
-    cp1.visualizar();
-
-    console.log("");
+   //Novas Instâncias da Classe ContaCorrente (Objetos)
+    contas.cadastrar(new ContaCorrente(contas.gerarNumero(), 1234, 1, 'Amanda Magro', 1000000.00, 100000.00));
+    contas.cadastrar(new ContaCorrente(contas.gerarNumero(), 4578, 1, 'João da Silva', 1000.00, 100.00));
+ 
+    // Novas Instâncias da Classe ContaPoupança (Objetos)
+    contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), 5789, 2, "Geana Almeida", 10000, 10));
+    contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), 5698, 2, "Jean Lima", 15000, 15));
 
     while(true){
 
@@ -67,31 +57,64 @@ export function main(){
 
         switch(opcao){
             case 1:
-                console.log("\n\nCriar Conta\n\n")
+                console.log("Digite o numero da agencia")
+                agencia = readlinesync.questionInt('');
+
+                console.log("Digite o nome do titular")
+                titular = readlinesync.question('');
+
+                console.log("Escolha o tipo da Conta")
+                tipo = readlinesync.keyInSelect(tipoContas, "", {cancel: false}) + 1;
+
+                console.log("Digite o Saldo da Conta")
+                saldo = readlinesync.questionFloat('');
+
+                switch(tipo){
+                    case 1:
+                        console.log("Digite o limite da Conta")
+                        limite = readlinesync.questionFloat('');
+                        contas.cadastrar(new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite))
+                        break;
+                    case 2:
+                        console.log("Digite o dia do aniversario da poupança")
+                       aniversario = readlinesync.questionInt('');
+                       contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario))
+                        break;
+                }
+
+            keyPress();
             break;
             case 2:
                 console.log("\n\nListar todas as Contas\n\n");
+                contas.listarTodas();
 
+            keyPress();
             break;
             case 3:
                 console.log("\n\nConsultar dados da Conta - por número\n\n");
 
+                console.log("Digite o numero da conta: ");
+                numero = readlinesync.questionInt('');
+
+                contas.procurarPorNumero(numero);
+
+            keyPress();
             break;
             case 4:
                 console.log("\n\nAtualizar dados da Conta\n\n");
-
+            keyPress();
             break;
             case 5:
                 console.log("\n\nApagar uma Conta\n\n");
-
+            keyPress();
             break;
             case 6:
                 console.log("\n\nSaque\n\n");
-
+            keyPress();
             break;
             case 7:
                 console.log("\n\nDepósito\n\n");
-
+            keyPress();
             break;
             case 8:
                 console.log("\n\nTransferência entre Contas\n\n");
@@ -111,6 +134,12 @@ export function about(): void{
     console.log(colors.fg.red,"Josadaque Ferreira ")
     console.log(colors.fg.gray,"github.com/josadack ")
     console.log("************************************************",colors.reset)
+}
+
+function keyPress(): void {
+    console.log(colors.reset, "");
+    console.log("\nPressione enter para continuar...");
+    readlinesync.prompt();
 }
  
 main();

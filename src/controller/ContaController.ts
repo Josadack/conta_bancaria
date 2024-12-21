@@ -2,6 +2,7 @@ import { Conta } from "../model/Conta";
 import { ContaRepository } from "../repository/ContaRepository";
 
 export class ContaController implements ContaRepository {
+    
 
     //coleção Array que avai armazenar os objetos
     private listacontas = new Array<Conta>();
@@ -38,7 +39,6 @@ export class ContaController implements ContaRepository {
        if(buscaConta !== null){
             this.listacontas[this.listacontas.indexOf(buscaConta)] = conta;
             console.log("A Conta foi atualizada com sucesso!");
-          //buscaConta?.visualizar();
         
        }else{
         console.log("\nConta não encontrada")
@@ -57,6 +57,15 @@ export class ContaController implements ContaRepository {
         }else{
          console.log("\nConta não encontrada")
         }
+    }
+    procuraPorTitular(titular: string): void {
+        //filtragem de dados
+       let buscaPorTitular =this.listacontas.filter(conta => 
+          conta.titular.toUpperCase().includes(titular.toUpperCase())
+       )
+
+       //Listagem  dos dados
+       buscaPorTitular.forEach(conta => conta.visualizar() );
     }
 
     //Métodos Bancários

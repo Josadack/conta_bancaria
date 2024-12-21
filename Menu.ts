@@ -42,14 +42,15 @@ export function main(){
         console.log("         6 - Sacar                              ")
         console.log("         7 - Depositar                          ")
         console.log("         8 - Transferir valores entre Contas   ")
-        console.log("         9 - Sair                               ")
+        console.log("         9 - Buscar Conta por titular                              ")
+        console.log("         0 - Sair                               ")
         console.log("                                     ")
         
         
         console.log(colors.fg.yellowstrong,"Entre com a opção desejada: ", colors.reset)
         console.log(colors.fg.red), opcao = readlinesync.questionInt("") , console.log(colors.reset)
 
-        if(opcao === 9){
+        if(opcao === 0){
             console.log(colors.fg.cyan,"       \nBanco JFS - Investindo no seu amanhã.")
             about();
             process.exit();
@@ -195,6 +196,17 @@ export function main(){
                 contas.transferir(numero, numeroDestino, valor);
 
             break;
+            case 9:
+                console.log("\n\nConsulta pelo titular da Contas\n\n");
+                
+                console.log("\n\nDigite o nome do titular\n\n");
+                titular = readlinesync.question('')
+
+                contas.procuraPorTitular(titular);
+
+                keyPress();
+                break;
+                
             default:
                 console.log(colors.bg.white,colors.fg.red,"\nOPÇÃO INVÁLIDA!",colors.reset)
     }

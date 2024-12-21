@@ -218,7 +218,7 @@ export function about(): void{
 
     console.log(colors.fg.gray,"************************************************")
     console.log(" Desenvolvido por: ")
-    console.log(colors.fg.red,"Josadaque Ferreira ")
+    console.log(colors.fg.redstrong,"Josadaque Ferreira ")
     console.log(colors.fg.gray,"github.com/josadack ")
     console.log("************************************************",colors.reset)
 }

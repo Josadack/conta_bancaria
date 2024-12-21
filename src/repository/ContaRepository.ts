@@ -13,7 +13,7 @@ export interface ContaRepository{
 
     deletar(numero: number): void;
 
-    procuraPorTitular(titular: string):void;
+    procurarPorTitular(titular: string):void;
 
     //Métodos bancarios
     sacar(numero: number, valor: number): void;

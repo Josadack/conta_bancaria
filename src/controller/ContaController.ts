@@ -58,7 +58,7 @@ export class ContaController implements ContaRepository {
          console.log("\nConta não encontrada")
         }
     }
-    procuraPorTitular(titular: string): void {
+    procurarPorTitular(titular: string): void {
         //filtragem de dados
        let buscaPorTitular =this.listacontas.filter(conta => 
           conta.titular.toUpperCase().includes(titular.toUpperCase())

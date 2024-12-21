@@ -107,7 +107,7 @@ export function main(){
                 console.log("Digite o numero da conta: ");
                 numero = readlinesync.questionInt('');
 
-                let conta = contas.buscarNoArray(numero);
+                let conta = contas.buscaNoArray(numero);
 
                 if(conta !== null){
 
@@ -202,7 +202,7 @@ export function main(){
                 console.log("\n\nDigite o nome do titular\n\n");
                 titular = readlinesync.question('')
 
-                contas.procuraPorTitular(titular);
+                contas.procurarPorTitular(titular);
 
                 keyPress();
                 break;

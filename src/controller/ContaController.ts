@@ -11,7 +11,7 @@ export class ContaController implements ContaRepository {
     public numero: number = 0;
     
     procurarPorNumero(numero: number): void {
-       const buscaConta = this.buscarNoArray(numero);
+       const buscaConta = this.buscaNoArray(numero);
 
        if(buscaConta !== null){
           buscaConta?.visualizar();
@@ -34,7 +34,7 @@ export class ContaController implements ContaRepository {
     }
 
     atualizar(conta: Conta): void {
-        const buscaConta = this.buscarNoArray(conta.numero);
+        const buscaConta = this.buscaNoArray(conta.numero);
 
        if(buscaConta !== null){
             this.listacontas[this.listacontas.indexOf(buscaConta)] = conta;
@@ -47,7 +47,7 @@ export class ContaController implements ContaRepository {
     }
 
     deletar(numero: number): void {
-        const buscaConta = this.buscarNoArray(numero);
+        const buscaConta = this.buscaNoArray(numero);
 
         if(buscaConta !== null){
              this.listacontas.splice(this.listacontas.indexOf(buscaConta), 1)
@@ -71,7 +71,7 @@ export class ContaController implements ContaRepository {
     //Métodos Bancários
     sacar(numero: number, valor: number): void {
        
-        const buscaConta = this.buscarNoArray(numero);
+        const buscaConta = this.buscaNoArray(numero);
 
         if(buscaConta !== null){
              if(buscaConta.sacar(valor) === true)
@@ -84,7 +84,7 @@ export class ContaController implements ContaRepository {
 
     depositar(numero: number, valor: number): void {
 
-        const buscaConta = this.buscarNoArray(numero);
+        const buscaConta = this.buscaNoArray(numero);
 
         if(buscaConta !== null){
              buscaConta.despositar(valor)
@@ -97,8 +97,8 @@ export class ContaController implements ContaRepository {
 
     transferir(numeroOrigem: number, numeroDestino: number, valor:number): void {
 
-        const contaOrigem = this.buscarNoArray(numeroOrigem);
-        const contaDestino = this.buscarNoArray(numeroDestino);
+        const contaOrigem = this.buscaNoArray(numeroOrigem);
+        const contaDestino = this.buscaNoArray(numeroDestino);
 
         if(contaOrigem !== null && contaDestino !== null){
              if(contaOrigem.sacar(valor) === true){
@@ -117,7 +117,7 @@ export class ContaController implements ContaRepository {
         return ++this.numero;
     }
 
-    public buscarNoArray(numero: number): Conta | null{
+    public buscaNoArray(numero: number): Conta | null{
         for(let conta of this.listacontas){
             if(conta.numero === numero)
                 return conta;
